@@ -5,13 +5,13 @@ project:
 
 data:
   dataset: food101
-  hf_cache_dir: "E:/hf_cache"
+  hf_cache_dir: null #e.g. "data/hf_cache"
   data_dir: "data/food101"
   num_classes: 101
   image_size: 224
-  batch_size: 64
-  num_workers: 4
-  pin_memory: true
+  batch_size: 16
+  num_workers: 0
+  pin_memory: false
 
 train:
   seed: 1337
@@ -22,6 +22,7 @@ train:
   model_name: "resnet18"
   pretrained: true
   amp: true
+  max_steps_per_epoch: 300
 
 split:
   val_ratio: 0.1
