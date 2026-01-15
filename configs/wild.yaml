@@ -1,0 +1,28 @@
+wild:
+  source: wikimedia
+  seed: 1337
+
+  #subset of Food-101 classes (10 classes x 30 images = 300 total)
+  classes:
+    - hamburger
+    - pizza
+    - sushi
+    - ramen
+    - paella
+    - tiramisu
+    - cheesecake
+    - caesar_salad
+    - french_fries
+    - ice_cream
+
+  images_per_class: 30
+  max_candidates_per_class: 300
+  min_width: 128
+  min_height: 128
+
+  output_dir: "data/wild_images"
+  output_csv: "data/wild_images/wild_metadata.csv"
+
+  #rate limiting
+  request_sleep_sec: 0.1
+  user_agent: "food101-takehome-wild-builder/1.0 (https://github.com/iasminaiacob/aecom-ml-takehome)"
