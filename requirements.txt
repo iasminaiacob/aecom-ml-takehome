@@ -12,4 +12,3 @@ scikit-learn
 matplotlib
 requests
 pytest
-pyyaml
