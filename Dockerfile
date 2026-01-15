@@ -18,4 +18,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . /app
 
 #default command: show help
-CMD ["python", "-m", "src.cli", "--help"]
+CMD ["python", "cli.py", "--help"]
