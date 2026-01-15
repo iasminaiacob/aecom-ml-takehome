@@ -1,0 +1,30 @@
+project:
+  name: food101_cv_takehome
+  output_dir: outputs
+  run_name: baseline_resnet18
+
+data:
+  dataset: food101
+  hf_cache_dir: "E:/hf_cache"
+  data_dir: "data/food101"
+  num_classes: 101
+  image_size: 224
+  batch_size: 64
+  num_workers: 4
+  pin_memory: true
+
+train:
+  seed: 1337
+  deterministic: true
+  epochs: 5
+  lr: 0.0003
+  weight_decay: 0.01
+  model_name: "resnet18"
+  pretrained: true
+  amp: true
+
+split:
+  val_ratio: 0.1
+
+device:
+  prefer: "cuda"

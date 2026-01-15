@@ -1,0 +1,15 @@
+torch
+torchvision
+timm
+datasets
+huggingface_hub
+pyyaml
+tqdm
+pandas
+numpy
+pillow
+scikit-learn
+matplotlib
+requests
+pytest
+pyyaml
