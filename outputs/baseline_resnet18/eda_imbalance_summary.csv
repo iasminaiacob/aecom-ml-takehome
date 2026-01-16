@@ -1,0 +1,2 @@
+min,max,mean,std,cv,imbalance_ratio_max_over_min
+750.0,750.0,750.0,0.0,0.0,1.0

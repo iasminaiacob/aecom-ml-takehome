@@ -1,0 +1,10 @@
+{
+  "run_name": "easy2_ce_resnet18",
+  "weights": "models/easy2_ce_resnet18.pt",
+  "n_bins": 15,
+  "temperature": 1.0709929466247559,
+  "nll_before": 2.015493392944336,
+  "nll_after": 2.0102527141571045,
+  "ece_before": 0.043287609984494844,
+  "ece_after": 0.029217861944943357
+}

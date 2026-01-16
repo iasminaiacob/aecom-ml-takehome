@@ -1,0 +1,33 @@
+project:
+  name: food101_cv_takehome
+  output_dir: outputs
+  run_name: easy_effnetb0
+
+data:
+  dataset: food101
+  hf_cache_dir: null #e.g. "data/hf_cache"
+  data_dir: "data/food101"
+  num_classes: 101
+  image_size: 224
+  batch_size: 16
+  num_workers: 0
+  pin_memory: false
+
+train:
+  loss: "ce"
+  class_weighting: "none"
+  seed: 1337
+  deterministic: true
+  epochs: 5
+  lr: 0.0003
+  weight_decay: 0.01
+  model_name: "efficientnet_b0"
+  pretrained: true
+  amp: true
+  max_steps_per_epoch: 300
+
+split:
+  val_ratio: 0.1
+
+device:
+  prefer: "cuda"

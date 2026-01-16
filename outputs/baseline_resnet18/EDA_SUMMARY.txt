@@ -1,0 +1,16 @@
+Food-101 EDA outputs
+- Counts: outputs\baseline_resnet18\eda_class_counts.csv
+- Imbalance summary (train): outputs\baseline_resnet18\eda_imbalance_summary.csv
+- Resolutions (sampled): outputs\baseline_resnet18\eda_resolutions_sampled.csv
+- Resolutions summary: outputs\baseline_resnet18\eda_resolutions_summary.csv
+Figures:
+- outputs\baseline_resnet18\figs\train_class_counts_sorted.png
+- outputs\baseline_resnet18\figs\resolutions_scatter_sampled.png
+
+Imbalance summary (train):
+min: 750.0
+max: 750.0
+mean: 750.0
+std: 0.0
+cv: 0.0
+imbalance_ratio_max_over_min: 1.0

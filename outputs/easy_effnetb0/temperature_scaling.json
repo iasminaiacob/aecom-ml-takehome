@@ -1,0 +1,10 @@
+{
+  "run_name": "easy_effnetb0",
+  "weights": "models/easy_effnetb0.pt",
+  "n_bins": 15,
+  "temperature": 1.033085584640503,
+  "nll_before": 1.1962591409683228,
+  "nll_after": 1.1953096389770508,
+  "ece_before": 0.023067398532182624,
+  "ece_after": 0.01783978852494914
+}
