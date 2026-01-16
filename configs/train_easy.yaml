@@ -1,7 +1,7 @@
 project:
   name: food101_cv_takehome
   output_dir: outputs
-  run_name: medium5_gce_effnum_resnet18
+  run_name: easy2_ce_resnet18
 
 data:
   dataset: food101
@@ -14,13 +14,11 @@ data:
   pin_memory: false
 
 train:
-  loss: "gce"
-  gce_q: 0.7
-  class_weighting: "effective_num"
-  effective_beta: 0.9999
+  loss: "ce"
+  class_weighting: "none"
   seed: 1337
   deterministic: true
-  epochs: 3
+  epochs: 5
   lr: 0.0003
   weight_decay: 0.01
   model_name: "resnet18"

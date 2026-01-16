@@ -16,6 +16,8 @@ from src.transforms import build_train_transforms, build_eval_transforms
 from src.utils.config import load_yaml, ensure_dir
 from src.utils.device import get_device
 from src.utils.seed import seed_everything, seed_worker
+from src.utils.losses import GCELoss, effective_number_class_weights
+import argparse
 
 @dataclass
 class EpochResult:
@@ -51,7 +53,16 @@ def run_eval(model: nn.Module, loader: DataLoader, device: torch.device, num_cla
     return float(np.mean(losses)), accuracy_top1(logits_np, y_np), macro_f1(logits_np, y_np, num_classes=num_classes)
 
 def main() -> None:
-    cfg = load_yaml("configs/train.yaml")
+    parser = argparse.ArgumentParser(description="Train Food-101 model")
+    parser.add_argument(
+        "--config",
+        type=str,
+        default="configs/train.yaml",
+        help="Path to training config YAML",
+    )
+    args = parser.parse_args()
+
+    cfg = load_yaml(args.config)
 
     run_name = cfg["project"]["run_name"]
     out_dir = ensure_dir(Path(cfg["project"]["output_dir"]) / run_name)
@@ -83,6 +94,19 @@ def main() -> None:
     train_ds = HFDatasetWrapper(ds["train"], transform=train_tfm)
     val_ds = HFDatasetWrapper(ds["validation"], transform=eval_tfm)
 
+    #class weights
+    class_weighting = cfg["train"].get("class_weighting", "none")
+    class_weights = None
+
+    if class_weighting == "effective_num":
+        beta = float(cfg["train"].get("effective_beta", 0.9999))
+        #counts from HF split labels
+        labels = ds["train"]["label"]
+        counts = torch.zeros(num_classes, dtype=torch.long)
+        for y in labels:
+            counts[int(y)] += 1
+        class_weights = effective_number_class_weights(counts, beta=beta).to(torch.float32)
+
     #dataloader generator for determinism
     g = torch.Generator()
     g.manual_seed(seed)
@@ -110,7 +134,15 @@ def main() -> None:
     ).to(device)
 
     #optimizer, loss
-    criterion = nn.CrossEntropyLoss()
+    loss_name = str(cfg["train"].get("loss", "ce")).lower()
+    if loss_name == "ce":
+        criterion = nn.CrossEntropyLoss(weight=class_weights.to(device) if class_weights is not None else None)
+    elif loss_name == "gce":
+        q = float(cfg["train"].get("gce_q", 0.7))
+        criterion = GCELoss(q=q, weight=class_weights.to(device) if class_weights is not None else None)
+    else:
+        raise ValueError(f"Unknown loss: {loss_name}")
+
     optimizer = torch.optim.AdamW(
         model.parameters(),
         lr=float(cfg["train"]["lr"]),
@@ -173,7 +205,8 @@ def main() -> None:
         #save best model
         if val_f1 > best_val_f1:
             best_val_f1 = val_f1
-            ckpt_path = Path(models_dir) / f"{run_name}.pt"
+            ckpt_name = cfg["project"].get("ckpt_name", f"{run_name}.pt")
+            ckpt_path = Path(models_dir) / ckpt_name
             torch.save(
                 {
                     "model_name": cfg["train"]["model_name"],
