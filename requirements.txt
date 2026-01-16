@@ -12,3 +12,4 @@ scikit-learn
 matplotlib
 requests
 pytest
+timm

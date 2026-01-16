@@ -1,5 +1,4 @@
 from __future__ import annotations
-import torch
 import torch.nn as nn
 from torchvision import models
 
@@ -7,13 +6,19 @@ def build_model(model_name: str, num_classes: int, pretrained: bool = True) -> n
     """
     Build an ImageNet-pretrained backbone and replace the classifier head.
 
-    Supported models:
+    Supported torchvision models:
     - resnet18
     - mobilenet_v3_small
     - mobilenet_v3_large
+
+    Supported timm models:
+    - efficientnet_b0
+    - convnext_tiny
+    - any timm.create_model(model_name, ...) compatible
     """
     model_name = model_name.lower()
 
+    #torchvision
     if model_name == "resnet18":
         weights = models.ResNet18_Weights.IMAGENET1K_V1 if pretrained else None
         model = models.resnet18(weights=weights)
@@ -34,5 +39,11 @@ def build_model(model_name: str, num_classes: int, pretrained: bool = True) -> n
         in_features = model.classifier[-1].in_features
         model.classifier[-1] = nn.Linear(in_features, num_classes)
         return model
+    
+    #timm
+    try:
+        import timm
+    except ImportError as e:
+        raise ValueError(f"Unsupported model_name: {model_name}.") from e
 
-    raise ValueError(f"Unsupported model_name: {model_name}")
+    return timm.create_model(model_name, pretrained=pretrained, num_classes=num_classes)
