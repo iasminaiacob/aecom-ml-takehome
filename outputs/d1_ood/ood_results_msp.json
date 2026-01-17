@@ -1,0 +1,20 @@
+{
+  "method": "msp",
+  "weights": "models/easy2_ce_resnet18.pt",
+  "id": {
+    "split": "food101_validation",
+    "n": 5000
+  },
+  "wild": {
+    "auroc": 0.5904897163120567,
+    "auprc": 0.08123712414486851,
+    "n_id": 5000,
+    "n_ood": 282
+  },
+  "roboflow": {
+    "auroc": 0.5515076923076923,
+    "auprc": 0.006721778053758888,
+    "n_id": 5000,
+    "n_ood": 26
+  }
+}

@@ -1,0 +1,41 @@
+project:
+  run_name: d1_ood
+
+data:
+  dataset: food101
+  hf_cache_dir: null
+  num_classes: 101
+  image_size: 224
+  batch_size: 64
+  num_workers: 4
+  pin_memory: true
+
+eval:
+  seed: 1337
+  deterministic: true
+  #ID set: Food-101 validation
+  max_val_samples: 5000
+  model_name: "resnet18"
+
+  #OOD set A: Wikimedia wild set
+  wild_root: "data/wild_images"
+  wild_metadata_csv: "data/wild_images/wild_metadata.csv"
+  max_wild_samples: 300
+
+  #OOD set B: Roboflow Universe
+  use_roboflow: true
+  roboflow_download_dir: "data/roboflow_ood"
+  roboflow_workspace: "iasminaiacob"
+  roboflow_project: "fast-food-classification-ddqyc-u0ijs"
+  roboflow_version: 1
+  roboflow_split: "test"
+
+ood:
+  method: "msp" #can be used: msp | energy | mahalanobis
+  temperature: 1.0 #for energy
+  mahalanobis:
+    reg: 1e-4 #covariance regularization
+    max_fit_samples: 8000
+
+metrics:
+  report_curves: true

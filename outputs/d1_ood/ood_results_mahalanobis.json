@@ -1,0 +1,20 @@
+{
+  "method": "mahalanobis",
+  "weights": "models/easy2_ce_resnet18.pt",
+  "id": {
+    "split": "food101_validation",
+    "n": 5000
+  },
+  "wild": {
+    "auroc": 0.46154468085106387,
+    "auprc": 0.04812792132207171,
+    "n_id": 5000,
+    "n_ood": 282
+  },
+  "roboflow": {
+    "auroc": 0.5002538461538462,
+    "auprc": 0.005878929933183438,
+    "n_id": 5000,
+    "n_ood": 26
+  }
+}

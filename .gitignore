@@ -37,6 +37,7 @@ HF_HOME/
 data/food101/
 data/wild_images/**
 !data/wild_images/wild_metadata.csv
+data/roboflow_ood/
 
 #outputs
 outputs/**
@@ -53,7 +54,7 @@ outputs/**
 !outputs/easy2_ce_resnet18/
 !outputs/easy2_ce_resnet18/train_history.csv
 !outputs/easy2_ce_resnet18/temperature_scaling.json
-!outputs/easy2_ce_resnet18/calibration_plot.png
+!outputs/easy2_ce_resnet18/calibration_reliability.png
 !outputs/easy2_ce_resnet18/corruptions.csv
 !outputs/easy2_ce_resnet18/confusion_*.png
 !outputs/easy2_ce_resnet18/top_confusions.csv
@@ -82,6 +83,12 @@ outputs/**
 !models/
 !models/*.pt
 !models/*.pth
+
+#OOD results
+!outputs/d1_ood/
+!outputs/d1_ood/ood_results_msp.json
+!outputs/d1_ood/ood_results_energy.json
+!outputs/d1_ood/ood_results_mahalanobis.json
 
 #Docker artifacts
 predictions_docker.csv

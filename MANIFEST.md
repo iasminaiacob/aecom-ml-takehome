@@ -202,3 +202,31 @@ docker run --rm `
 
 Run all unit tests:
 pytest -q
+
+## 12) D1 — Cross-Dataset Generalization & OOD Detection
+
+This section evaluates out-of-distribution (OOD) detection when training on Food-101 and testing on external datasets.
+Three OOD scoring methods are implemented: **MSP**, **Energy**, and **Mahalanobis distance**.
+
+Set the Roboflow API key (required once):
+
+Powershell:
+$env:ROBOFLOW_API_KEY="YOUR_API_KEY"
+
+Download the dataset in folder format:
+roboflow download -f folder -l data/roboflow_ood iasminaiacob/fast-food-classification-ddqyc-u0ijs/1
+
+The extracted directory is expected to contain:
+data/roboflow_ood/
+├── train/
+├── valid/
+└── test/
+
+MSP:
+python -m src.eval_ood --config configs/d1_ood.yaml --weights models/easy2_ce_resnet18.pt  --device cuda --label_map configs/label_map.yaml --ood_method msp
+
+Energy:
+python -m src.eval_ood --config configs/d1_ood.yaml --weights models/easy2_ce_resnet18.pt  --device cuda --label_map configs/label_map.yaml --ood_method energy
+
+Mahalanobis:
+python -m src.eval_ood --config configs/d1_ood.yaml --weights models/easy2_ce_resnet18.pt  --device cuda --label_map configs/label_map.yaml --ood_method mahalanobis

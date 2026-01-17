@@ -1,0 +1,20 @@
+{
+  "method": "energy",
+  "weights": "models/easy2_ce_resnet18.pt",
+  "id": {
+    "split": "food101_validation",
+    "n": 5000
+  },
+  "wild": {
+    "auroc": 0.42764539007092195,
+    "auprc": 0.0428479963050601,
+    "n_id": 5000,
+    "n_ood": 282
+  },
+  "roboflow": {
+    "auroc": 0.4774692307692307,
+    "auprc": 0.0050610826296005095,
+    "n_id": 5000,
+    "n_ood": 26
+  }
+}
