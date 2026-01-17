@@ -53,6 +53,7 @@ outputs/**
 !outputs/easy2_ce_resnet18/
 !outputs/easy2_ce_resnet18/train_history.csv
 !outputs/easy2_ce_resnet18/temperature_scaling.json
+!outputs/easy2_ce_resnet18/calibration_plot.png
 !outputs/easy2_ce_resnet18/corruptions.csv
 !outputs/easy2_ce_resnet18/confusion_*.png
 !outputs/easy2_ce_resnet18/top_confusions.csv
